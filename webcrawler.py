@@ -8,8 +8,8 @@ print('             C R A W L E R')
 print(42 * '-')
 print('\033[32m' + ' by Jonathan Messias | jmcybers@gmail.com' + '\033[0m')
 print(42 * '-')
-print('1. Write an URL    >>>> http://target.com')
-print('2. Set any URLs    >>>>>> /tmp/target.txt')
+print('1. Write an URL   >>>>> http://target.com')
+print('2. Set any URLs   >>>>>>> /tmp/target.txt')
 print(42 * '-')
 
 
