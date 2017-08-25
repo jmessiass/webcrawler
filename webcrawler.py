@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 
 
 print(42 * '-')
-print('             C R A W L E R')
+print('          W E B C R A W L E R')
 print(42 * '-')
 print('\033[32m' + ' by Jonathan Messias | jmcybers@gmail.com' + '\033[0m')
 print(42 * '-')
