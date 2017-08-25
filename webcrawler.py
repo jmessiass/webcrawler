@@ -20,7 +20,7 @@ def option_validation(check_option=False):
             option = int(input('$ Choose an option [1-2]: '))
             print(42 * '-')
             check_option = True
-            return choose_option(option)
+            return option
         except ValueError as e:
             print(42 * '-')
             print('\033[31m' + '$ %s is not a valid option !!!'
@@ -95,6 +95,7 @@ def get_words(text):
     return clean_words
 
 
-option, page = option_validation()
+option = option_validation()
+option, page = choose_option(option)
 
 print(get_text(option, page))
