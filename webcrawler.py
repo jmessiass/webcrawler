@@ -19,7 +19,11 @@ def input_validation():
         try:
             option = int(input('$ Choose an option [1-2]: '))
             print(42 * '-')
-            return option
+            if option < 3:
+                return option
+            else:
+                print('\033[31m' + '$ %d is an invalid option !!!' % option + '\033[0m')
+                print(42 * '-')
         except ValueError as e:
             print(42 * '-')
             print('\033[31m' + '$ %s is not a valid option !!!'
@@ -44,9 +48,6 @@ def choose_option(option):
         print('\033[33m' + '[2] Sorry, this tool is not availabe =^(' + '\033[0m')
         print(42 * '-')
         # text = 'FILE: '
-    else:
-        print('\033[33m' + '[%d] Not exists this option !!!' % option + '\033[0m')
-        print(42 * '-')
 
     return input_validation()
 
