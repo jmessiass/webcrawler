@@ -13,13 +13,12 @@ print('2. Set any URLs   >>>>>>> /tmp/target.txt')
 print(42 * '-')
 
 
-def option_validation(check_option=False):
+def input_validation():
     """ validate input data """
-    while not check_option:
+    while True:
         try:
             option = int(input('$ Choose an option [1-2]: '))
             print(42 * '-')
-            check_option = True
             return option
         except ValueError as e:
             print(42 * '-')
@@ -49,7 +48,7 @@ def choose_option(option):
         print('\033[33m' + '[%d] Not exists this option !!!' % option + '\033[0m')
         print(42 * '-')
 
-    return option_validation()
+    return input_validation()
 
 
 def get_text(option, page):
@@ -95,7 +94,7 @@ def get_words(text):
     return clean_words
 
 
-option = option_validation()
-option, page = choose_option(option)
-
-print(get_text(option, page))
+if __name__ == "__main__":
+    option = input_validation()
+    option, page = choose_option(option)
+    print(get_text(option, page))
