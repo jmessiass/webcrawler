@@ -6,7 +6,7 @@ WebCrawler is a tool that extract all data from an URL and create a text file wi
 Steps:
 
 
-to do git clone from script
+clone the project
 
 ```sh
 $ git clone https://github.com/jmessiass/webcrawler.git
@@ -18,14 +18,14 @@ $ python3 webcrawler.py
 choose a option (just option '1' in this moment)
 
 ```sh
-1. Set an URL
+1
 ```
 set the URL
 
 ```sh
-$ URL: http://target.com
+http://target.com
 ```
 
-# THAT'S ALL
+# THAT'S ALL =^)
 
 Now, analyse your new wordlist in your current path!
