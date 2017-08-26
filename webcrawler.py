@@ -1,6 +1,7 @@
 from urllib.request import urlopen
 from urllib.error import URLError
 from bs4 import BeautifulSoup
+import re
 
 
 print(42 * '-')
@@ -8,7 +9,9 @@ print('          W E B C R A W L E R')
 print(42 * '-')
 print('\033[32m' + ' by Jonathan Messias | jmcybers@gmail.com' + '\033[0m')
 print(42 * '-')
-print('1. Set an URL   >>>>> http://target.com')
+print(42 * ' ')
+print('1. Set an URL   >>>   http://target.com')
+print(42 * ' ')
 # print('2. Set any URLs   >>>>>>> /tmp/target.txt')
 print(42 * '-')
 
@@ -62,6 +65,7 @@ def get_words(text):
 
     list_words = []
     clean_words = []
+    final_words = []
 
     for value in words:
         # remove tags and blank spaces
@@ -75,12 +79,14 @@ def get_words(text):
         for word in value.split(' '):
             clean_words.append(word)
 
-    # remove ',' from list
-    clean_words = [value.replace(',', '') for value in clean_words]
-    # remove '.' from list
-    clean_words = [value.replace('.', '') for value in clean_words]
+    # remove duplicates values
+    clean_words = list(set(clean_words))
 
-    return clean_words
+    for word in clean_words:
+        # remove special caracters
+        final_words.append(re.sub(r'([.,#!@$)(}{;:?>\'\"/\\<~^-_=+&])', r'', word))
+
+    return final_words
 
 
 if __name__ == "__main__":
