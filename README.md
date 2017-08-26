@@ -13,6 +13,7 @@ $ git clone https://github.com/jmessiass/webcrawler.git
 ```
 execute the script
 ```sh
+$ cd webcrawler
 $ python3 webcrawler.py
 ```
 choose a option (just option '1' in this moment)
