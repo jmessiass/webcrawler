@@ -4,16 +4,22 @@ from bs4 import BeautifulSoup
 import re
 
 
-print(42 * '-')
-print('          W E B C R A W L E R')
-print(42 * '-')
-print('\033[32m' + ' by Jonathan Messias | jmcybers@gmail.com' + '\033[0m')
-print(42 * '-')
-print(42 * ' ')
-print('1. Set an URL (http://target.com)')
-# print('2. Set any URLs (/tmp/target.txt)')
-print(42 * ' ')
-print(42 * '-')
+print(67 * '-')
+print(' __    __   ___ ____     __ ____   ____ __    __ _       ___ ____  ')
+print('|  |__|  | /  _]    \   /  ]    \ /    |  |__|  | |     /  _]    \ ')
+print('|  |  |  |/  [_|  o  ) /  /|  D  )  o  |  |  |  | |    /  [_|  D  )')
+print('|  |  |  |    _]     |/  / |    /|     |  |  |  | |___|    _]    / ')
+print('|  `  \'  |   [_|  O  /   \_|    \|  _  |  `  \'  |     |   [_|    \ ')
+print(' \      /|     |     \     |  .  \  |  |\      /|     |     |  .  \\')
+print('  \_/\_/ |_____|_____|\____|__|\_|__|__| \_/\_/ |_____|_____|__|\_|')
+print('                                                        version 1.0')
+print(67 * '-')
+print('\033[32m' + '         by Jonathan Messias | jmcybers@gmail.com | 08/2017' + '\033[0m')
+print(67 * '-')
+print(67 * ' ')
+print('1. Set an URL')
+print(67 * ' ')
+print(67 * '-')
 
 
 def input_validation():
@@ -21,17 +27,17 @@ def input_validation():
     while True:
         try:
             option = int(input('$ Choose an option [1]: '))
-            print(42 * '-')
+            print(67 * '-')
             if option < 2:
                 return option
             else:
                 print('\033[31m' + '$ %d is an invalid option !!!' % option + '\033[0m')
-                print(42 * '-')
+                print(67 * '-')
         except ValueError as e:
-            print(42 * '-')
+            print(67 * '-')
             print('\033[31m' + '$ %s is not a valid option !!!'
                   % e.args[0].split(': ')[1] + '\033[0m')
-            print(42 * '-')
+            print(67 * '-')
 
 
 def set_target(option):
@@ -42,12 +48,12 @@ def set_target(option):
                 # define global variable
                 global url
                 url = input('[{0}] URL: '.format(option))
-                print(42 * '-')
+                print(67 * '-')
                 page = urlopen(url)
                 return option, page
             except(URLError, ValueError):
                 print('\033[33m' + '$ Error in your URL, try again !!!' + '\033[0m')
-                print(42 * '-')
+                print(67 * '-')
 
 
 def extract_text(option, page):
