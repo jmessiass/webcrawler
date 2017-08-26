@@ -1,4 +1,4 @@
-# WebCrawler
+# WebCrawler v1.0
 
 WebCrawler is a tool that extract all data from an URL and create a text file with all words, that can be used like a wordlist for many things. 
 
