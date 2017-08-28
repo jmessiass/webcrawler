@@ -1,8 +1,8 @@
+from unicodedata import normalize
 from urllib.request import urlopen
 from urllib.error import URLError
 from bs4 import BeautifulSoup
 import re
-from unicodedata import normalize
 
 
 print(67 * '-')
