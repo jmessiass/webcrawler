@@ -142,8 +142,12 @@ def lower_words(words):
     return list_words
 
 
-def remove_accents(txt):
-    return normalize('NFKD', txt).encode('ASCII', 'ignore').decode('ASCII')
+def remove_accents(words):
+    # remove accents
+    list_words = []
+    for word in words:
+        list_words.append(normalize('NFKD', word).encode('ASCII', 'ignore').decode('ASCII'))
+    return list_words
 
 
 if __name__ == "__main__":
@@ -161,9 +165,7 @@ if __name__ == "__main__":
     words_lower = lower_words(list_words)
     list_words.extend(words_lower)
     # remove accents
-    final_words = []
-    for word in list_words:
-        final_words.append(remove_accents(word))
+    final_words = remove_accents(list_words)
     # generate file
     file_name = create_file(final_words)
     print('[*] Your wordlist was created in: {}'.format(file_name))
