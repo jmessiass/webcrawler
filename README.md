@@ -11,7 +11,7 @@ clone the project
 ```sh
 $ git clone https://github.com/jmessiass/webcrawler.git
 ```
-execute the script
+execute the script using python 3
 ```sh
 $ cd webcrawler
 $ python3 webcrawler.py
