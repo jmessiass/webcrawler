@@ -26,16 +26,16 @@ def input_validation():
     """ validate input data """
     while True:
         try:
-            option = int(input('$ Choose an option [1]: '))
+            option = int(input('[*] Choose an option [1]: '))
             print(67 * '-')
             if option < 2:
                 return option
             else:
-                print('\033[31m' + '$ %d is an invalid option !!!' % option + '\033[0m')
+                print('\033[31m' + '[x] %d is an invalid option !!!' % option + '\033[0m')
                 print(67 * '-')
         except ValueError as e:
             print(67 * '-')
-            print('\033[31m' + '$ %s is not a valid option !!!'
+            print('\033[31m' + '[x] %s is not a valid option !!!'
                   % e.args[0].split(': ')[1] + '\033[0m')
             print(67 * '-')
 
@@ -52,7 +52,7 @@ def set_target(option):
                 page = urlopen(url)
                 return option, page
             except(URLError, ValueError):
-                print('\033[33m' + '$ Error in your URL, try again !!!' + '\033[0m')
+                print('\033[33m' + '[x] Error in your URL, try again !!!' + '\033[0m')
                 print(67 * '-')
 
 
@@ -112,11 +112,17 @@ def create_file(words):
     """ create the word list """
     url_split = url.split('//')
     url_domain = url_split[1].split('.')
-    file_title = 'wordlist_{0}.txt'.format(url_domain[0])
+    # extract thae domain name
+    if url_domain[0] == 'www':
+        url_domain = url_domain[1]
+    else:
+        url_domain = url_domain[0]
+    file_title = 'wordlist_{0}.txt'.format(url_domain)
     file = open(file_title, 'w+')
     for word in words:
         file.write('%s\n' % word)
     file.close()
+    return file.name
 
 
 def upper_words(words):
@@ -150,4 +156,6 @@ if __name__ == "__main__":
     words_lower = lower_words(list_words)
     list_words.extend(words_lower)
     # generate file
-    create_file(list_words)
+    file_name = create_file(list_words)
+    print('[*] Your wordlist was created in: {}'.format(file_name))
+    print(67 * '-')
