@@ -2,6 +2,7 @@ from urllib.request import urlopen
 from urllib.error import URLError
 from bs4 import BeautifulSoup
 import re
+from unicodedata import normalize
 
 
 print(67 * '-')
@@ -141,6 +142,10 @@ def lower_words(words):
     return list_words
 
 
+def remove_accents(txt):
+    return normalize('NFKD', txt).encode('ASCII', 'ignore').decode('ASCII')
+
+
 if __name__ == "__main__":
     """ main method """
     # input validation
@@ -155,7 +160,11 @@ if __name__ == "__main__":
     # convert words in lower case
     words_lower = lower_words(list_words)
     list_words.extend(words_lower)
+    # remove accents
+    final_words = []
+    for word in list_words:
+        final_words.append(remove_accents(word))
     # generate file
-    file_name = create_file(list_words)
+    file_name = create_file(final_words)
     print('[*] Your wordlist was created in: {}'.format(file_name))
     print(67 * '-')
