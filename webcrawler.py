@@ -19,6 +19,7 @@ print('\033[32m' + '         by Jonathan Messias | jmcybers@gmail.com | 08/2017'
 print(67 * '-')
 print(67 * ' ')
 print('1. Set an URL')
+print('2. Set any URLs using a text file')
 print(67 * ' ')
 print(67 * '-')
 
@@ -27,9 +28,9 @@ def input_validation():
     """ validate input data """
     while True:
         try:
-            option = int(input('[*] Choose an option [1]: '))
+            option = int(input('[*] Choose an option [1-2]: '))
             print(67 * '-')
-            if option < 2:
+            if option < 3:
                 return option
             else:
                 print('\033[31m' + '[x] %d is an invalid option !!!' % option + '\033[0m')
@@ -44,6 +45,7 @@ def input_validation():
 def set_target(option):
     """ choose an option and validade that """
     if option == 1:
+        # set an URL
         while True:
             try:
                 # define global variable
@@ -54,6 +56,31 @@ def set_target(option):
                 return option, page
             except(URLError, ValueError):
                 print('\033[33m' + '[x] Error in your URL, try again !!!' + '\033[0m')
+                print(67 * '-')
+    elif option == 2:
+        while True:
+            try:
+                file_user = input('[{0}] File: '.format(option))
+                print(67 * '-')
+                file = open(file_user, 'r')
+                if file.mode == 'r':
+                    pages = []
+                    errors = []
+                    text = file.read()
+                    urls = text.splitlines()
+                    for url in urls:
+                        # while True:
+                        try:
+                            pages.append(urlopen(url))
+                        # return option, pages
+                        except(URLError, ValueError):
+                            errors.append(url)
+                    return pages, errors
+                else:
+                    print('\033[31m' + '[x] Error in the file !!!' + '\033[0m')
+                    print(67 * '-')
+            except FileNotFoundError:
+                print('\033[33m' + '[x] File not found, try again !!!' + '\033[0m')
                 print(67 * '-')
 
 
@@ -77,10 +104,8 @@ def get_words(text):
     blank_words = split_words(list_words)
     # remove special characters
     regex_words = remove_special_characters(blank_words)
-    # remove duplicates values
-    clean_words = list(set(regex_words))
     # remove empty values
-    clean_words = list(filter(None, clean_words))
+    clean_words = list(filter(None, regex_words))
     return clean_words
 
 
@@ -156,6 +181,7 @@ if __name__ == "__main__":
     option = input_validation()
     # set the target
     option, page = set_target(option)
+    import ipdb; ipdb.set_trace()
     # extract all text from target
     list_words = extract_text(option, page)
     # convert words in upper case
@@ -166,6 +192,8 @@ if __name__ == "__main__":
     list_words.extend(words_lower)
     # remove accents
     final_words = remove_accents(list_words)
+    # remove duplicates values
+    final_words = list(set(final_words))
     # generate file
     file_name = create_file(final_words)
     print('[*] Your wordlist was created in: {}'.format(file_name))
