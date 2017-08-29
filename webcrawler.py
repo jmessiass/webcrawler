@@ -79,7 +79,7 @@ def set_target(option):
                 else:
                     print('\033[31m' + '[x] Error in the file !!!' + '\033[0m')
                     print(67 * '-')
-            except FileNotFoundError:
+            except OSError:
                 print('\033[33m' + '[x] File not found, try again !!!' + '\033[0m')
                 print(67 * '-')
 
