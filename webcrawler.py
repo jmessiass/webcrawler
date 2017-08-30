@@ -53,7 +53,7 @@ def set_target(option):
                 url = input('[{0}] URL: '.format(option))
                 print(67 * '-')
                 page = urlopen(url)
-                return option, page
+                return page
             except(URLError, ValueError):
                 print('\033[33m' + '[x] Error in your URL, try again !!!' + '\033[0m')
                 print(67 * '-')
@@ -69,10 +69,8 @@ def set_target(option):
                     text = file.read()
                     urls = text.splitlines()
                     for url in urls:
-                        # while True:
                         try:
                             pages.append(urlopen(url))
-                        # return option, pages
                         except(URLError, ValueError):
                             errors.append(url)
                     return pages, errors
@@ -130,7 +128,7 @@ def remove_special_characters(words):
     """ remove special characters """
     list_words = []
     for word in words:
-        list_words.append(re.sub(r'([.,#!@$)\]\[(}{;:?>\'\"/\\<~^-_=+&])', r'', word))
+        list_words.append(re.sub(r'([.,#!@$)\]|\[(}{;:?>\'\"/\\<~^-_=+&])', r'', word))
     return list_words
 
 
@@ -179,9 +177,11 @@ if __name__ == "__main__":
     """ main method """
     # input validation
     option = input_validation()
-    # set the target
-    option, page = set_target(option)
-    import ipdb; ipdb.set_trace()
+    if option == 1:
+        page = set_target(option)
+    elif option == 2:
+        page, errors = set_target(option)
+    # import ipdb; ipdb.set_trace()
     # extract all text from target
     list_words = extract_text(option, page)
     # convert words in upper case
