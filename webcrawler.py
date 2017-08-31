@@ -93,11 +93,12 @@ def extract_text(option, page):
         for text in page:
             html = text.read()
             bs_html.append(BeautifulSoup(html, 'lxml'))
-        import ipdb; ipdb.set_trace()
+        return get_words(bs_html, option)
 
 
 def get_words(text, option=1):
     """ extract words from html tags """
+    import ipdb; ipdb.set_trace()
     words = text.find_all({'h1', 'h2', 'h3',
                            'h4', 'h5', 'h6',
                            'h7', 'a', 'p',
