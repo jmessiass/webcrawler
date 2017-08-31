@@ -6,17 +6,17 @@ import re
 
 
 print(67 * '-')
-print(' __    __   ___ ____     __ ____   ____ __    __ _       ___ ____  ')
-print('|  |__|  | /  _]    \   /  ]    \ /    |  |__|  | |     /  _]    \ ')
-print('|  |  |  |/  [_|  o  ) /  /|  D  )  o  |  |  |  | |    /  [_|  D  )')
-print('|  |  |  |    _]     |/  / |    /|     |  |  |  | |___|    _]    / ')
-print('|  `  \'  |   [_|  O  /   \_|    \|  _  |  `  \'  |     |   [_|    \ ')
-print(' \      /|     |     \     |  .  \  |  |\      /|     |     |  .  \\')
-print('  \_/\_/ |_____|_____|\____|__|\_|__|__| \_/\_/ |_____|_____|__|\_|')
-print('                                                        version 1.0')
-print(67 * '-')
-print('\033[32m' + '         by Jonathan Messias | jmcybers@gmail.com | 08/2017' + '\033[0m')
-print(67 * '-')
+# print(' __    __   ___ ____     __ ____   ____ __    __ _       ___ ____  ')
+# print('|  |__|  | /  _]    \   /  ]    \ /    |  |__|  | |     /  _]    \ ')
+# print('|  |  |  |/  [_|  o  ) /  /|  D  )  o  |  |  |  | |    /  [_|  D  )')
+# print('|  |  |  |    _]     |/  / |    /|     |  |  |  | |___|    _]    / ')
+# print('|  `  \'  |   [_|  O  /   \_|    \|  _  |  `  \'  |     |   [_|    \ ')
+# print(' \      /|     |     \     |  .  \  |  |\      /|     |     |  .  \\')
+# print('  \_/\_/ |_____|_____|\____|__|\_|__|__| \_/\_/ |_____|_____|__|\_|')
+# print('                                                        version 1.1')
+# print(67 * '-')
+# print('\033[32m' + '         by Jonathan Messias | jmcybers@gmail.com | 08/2017' + '\033[0m')
+# print(67 * '-')
 print(67 * ' ')
 print('1. Set an URL')
 print('2. Set any URLs using a text file')
@@ -88,9 +88,15 @@ def extract_text(option, page):
         html = page.read()
         bs_html = BeautifulSoup(html, 'lxml')
         return get_words(bs_html)
+    elif option == 2:
+        bs_html = []
+        for text in page:
+            html = text.read()
+            bs_html.append(BeautifulSoup(html, 'lxml'))
+        import ipdb; ipdb.set_trace()
 
 
-def get_words(text):
+def get_words(text, option=1):
     """ extract words from html tags """
     words = text.find_all({'h1', 'h2', 'h3',
                            'h4', 'h5', 'h6',
@@ -181,7 +187,6 @@ if __name__ == "__main__":
         page = set_target(option)
     elif option == 2:
         page, errors = set_target(option)
-    # import ipdb; ipdb.set_trace()
     # extract all text from target
     list_words = extract_text(option, page)
     # convert words in upper case
