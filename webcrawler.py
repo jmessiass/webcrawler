@@ -87,30 +87,21 @@ def extract_text(option, page):
     if option == 1:
         html = page.read()
         bs_html = BeautifulSoup(html, 'lxml')
-        return get_words(bs_html)
+        return get_word(bs_html)
     elif option == 2:
         bs_html = []
         for text in page:
             html = text.read()
             bs_html.append(BeautifulSoup(html, 'lxml'))
-        return get_words(bs_html, option)
+        return get_words(bs_html)
 
 
-def get_words(text, option=1):
+def get_word(text):
     """ extract words from html tags """
-    if option == 1:
-        words = text.find_all({'h1', 'h2', 'h3',
-                               'h4', 'h5', 'h6',
-                               'h7', 'a', 'p',
-                               'span'})
-    elif option == 2:
-        import ipdb; ipdb.set_trace()
-        for word in text:
-            words = word.find_all({'h1', 'h2', 'h3',
-                                   'h4', 'h5', 'h6',
-                                   'h7', 'a', 'p',
-                                   'span'})
-            words.append(words)
+    words = text.find_all({'h1', 'h2', 'h3',
+                           'h4', 'h5', 'h6',
+                           'h7', 'a', 'p',
+                           'span'})
     # remove tags
     list_words = remove_tags(words)
     # split words
@@ -119,6 +110,25 @@ def get_words(text, option=1):
     regex_words = remove_special_characters(blank_words)
     # remove empty values
     clean_words = list(filter(None, regex_words))
+    return clean_words
+
+
+def get_words(text):
+    """ extract words from html tags """
+    for word in text:
+        words = word.find_all({'h1', 'h2', 'h3',
+                               'h4', 'h5', 'h6',
+                               'h7', 'a', 'p',
+                               'span'})
+        # remove tags
+        list_words = remove_tags(words)
+        # split words
+        blank_words = split_words(list_words)
+        # remove special characters
+        regex_words = remove_special_characters(blank_words)
+        # remove empty values
+        clean_words = list(filter(None, regex_words))
+        import ipdb; ipdb.set_trace()
     return clean_words
 
 
