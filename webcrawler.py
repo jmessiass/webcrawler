@@ -98,11 +98,19 @@ def extract_text(option, page):
 
 def get_words(text, option=1):
     """ extract words from html tags """
-    import ipdb; ipdb.set_trace()
-    words = text.find_all({'h1', 'h2', 'h3',
-                           'h4', 'h5', 'h6',
-                           'h7', 'a', 'p',
-                           'span'})
+    if option == 1:
+        words = text.find_all({'h1', 'h2', 'h3',
+                               'h4', 'h5', 'h6',
+                               'h7', 'a', 'p',
+                               'span'})
+    elif option == 2:
+        import ipdb; ipdb.set_trace()
+        for word in text:
+            words = word.find_all({'h1', 'h2', 'h3',
+                                   'h4', 'h5', 'h6',
+                                   'h7', 'a', 'p',
+                                   'span'})
+            words.append(words)
     # remove tags
     list_words = remove_tags(words)
     # split words
