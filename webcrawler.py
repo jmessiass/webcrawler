@@ -13,12 +13,13 @@ print('|  |  |  |    _]     |/  / |    /|     |  |  |  | |___|    _]    / ')
 print('|  `  \'  |   [_|  O  /   \_|    \|  _  |  `  \'  |     |   [_|    \ ')
 print(' \      /|     |     \     |  .  \  |  |\      /|     |     |  .  \\')
 print('  \_/\_/ |_____|_____|\____|__|\_|__|__| \_/\_/ |_____|_____|__|\_|')
-print('                                                        version 1.0')
+print('                                                        version 1.1')
 print(67 * '-')
 print('\033[32m' + '         by Jonathan Messias | jmcybers@gmail.com | 08/2017' + '\033[0m')
 print(67 * '-')
 print(67 * ' ')
-print('1. Set an URL')
+print('1. Create a wordlist')
+print('2. Get emails')
 print(67 * ' ')
 print(67 * '-')
 
@@ -27,9 +28,9 @@ def input_validation():
     """ validate input data """
     while True:
         try:
-            option = int(input('[*] Choose an option [1]: '))
+            option = int(input('[*] Choose an option [1-2]: '))
             print(67 * '-')
-            if option < 2:
+            if option < 3:
                 return option
             else:
                 print('\033[31m' + '[x] %d is an invalid option !!!' % option + '\033[0m')
@@ -43,7 +44,7 @@ def input_validation():
 
 def set_target(option):
     """ choose an option and validade that """
-    if option == 1:
+    if option == 1 or option == 2:
         while True:
             try:
                 # define global variable
@@ -51,7 +52,7 @@ def set_target(option):
                 url = input('[{0}] URL: '.format(option))
                 print(67 * '-')
                 page = urlopen(url)
-                return option, page
+                return page
             except(URLError, ValueError):
                 print('\033[33m' + '[x] Error in your URL, try again !!!' + '\033[0m')
                 print(67 * '-')
@@ -59,10 +60,19 @@ def set_target(option):
 
 def extract_text(option, page):
     """ get all html text from target """
+    html = page.read()
+    bs_html = BeautifulSoup(html, 'lxml')
     if option == 1:
-        html = page.read()
-        bs_html = BeautifulSoup(html, 'lxml')
         return get_words(bs_html)
+    elif option == 2:
+        return get_emails(bs_html)
+
+
+def get_emails(text):
+    for word in text.find_all('a', href=re.compile(r'^mailto:')):
+        print('>> %s' % word['href'])
+    print(67 * '-')
+    quit()
 
 
 def get_words(text):
@@ -77,10 +87,8 @@ def get_words(text):
     blank_words = split_words(list_words)
     # remove special characters
     regex_words = remove_special_characters(blank_words)
-    # remove duplicates values
-    clean_words = list(set(regex_words))
     # remove empty values
-    clean_words = list(filter(None, clean_words))
+    clean_words = list(filter(None, regex_words))
     return clean_words
 
 
@@ -155,7 +163,7 @@ if __name__ == "__main__":
     # input validation
     option = input_validation()
     # set the target
-    option, page = set_target(option)
+    page = set_target(option)
     # extract all text from target
     list_words = extract_text(option, page)
     # convert words in upper case
@@ -166,6 +174,8 @@ if __name__ == "__main__":
     list_words.extend(words_lower)
     # remove accents
     final_words = remove_accents(list_words)
+    # remove duplicates values
+    final_words = list(set(final_words))
     # generate file
     file_name = create_file(final_words)
     print('[*] Your wordlist was created in: {}'.format(file_name))
