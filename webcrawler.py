@@ -45,6 +45,7 @@ def input_validation():
 def set_target(option):
     """ choose an option and validade that """
     if option == 1 or option == 2:
+        # set an URL
         while True:
             try:
                 # define global variable
@@ -63,7 +64,7 @@ def extract_text(option, page):
     html = page.read()
     bs_html = BeautifulSoup(html, 'lxml')
     if option == 1:
-        return get_words(bs_html)
+        return get_word(bs_html)
     elif option == 2:
         return get_emails(bs_html)
 
@@ -75,7 +76,7 @@ def get_emails(text):
     quit()
 
 
-def get_words(text):
+def get_word(text):
     """ extract words from html tags """
     words = text.find_all({'h1', 'h2', 'h3',
                            'h4', 'h5', 'h6',
@@ -113,7 +114,7 @@ def remove_special_characters(words):
     """ remove special characters """
     list_words = []
     for word in words:
-        list_words.append(re.sub(r'([.,#!@$)\]\[(}{;:?>\'\"/\\<~^-_=+&])', r'', word))
+        list_words.append(re.sub(r'([.,#!@$)\]|\[(}{;:?>\'\"/\\<~^-_=+&])', r'', word))
     return list_words
 
 
