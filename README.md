@@ -11,9 +11,10 @@ clone the project
 ```sh
 $ git clone https://github.com/jmessiass/webcrawler.git
 ```
-execute the script using python 3
+install requirements and execute the script using python 3
 ```sh
 $ cd webcrawler
+$ pip install -r requirements.txt
 $ python3 webcrawler.py
 ```
 choose a option (just option '1' in this moment)
