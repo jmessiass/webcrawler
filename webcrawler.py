@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from unicodedata import normalize
 from urllib.request import urlopen
 from urllib.error import URLError
@@ -19,7 +20,7 @@ print('\033[32m' + '         by Jonathan Messias | jmcybers@gmail.com | 08/2017'
 print(67 * '-')
 print(67 * ' ')
 print('1. Create a wordlist')
-print('2. Get emails')
+# print('2. Get emails')
 print(67 * ' ')
 print(67 * '-')
 
@@ -28,9 +29,9 @@ def input_validation():
     """ validate input data """
     while True:
         try:
-            option = int(input('[*] Choose an option [1-2]: '))
+            option = int(input('[*] Choose an option [1]: '))
             print(67 * '-')
-            if option < 3:
+            if option < 2:
                 return option
             else:
                 print('\033[31m' + '[x] %d is an invalid option !!!' % option + '\033[0m')
